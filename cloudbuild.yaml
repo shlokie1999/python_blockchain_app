@@ -18,7 +18,12 @@ steps:
         mv gitleaks /usr/bin/
         gitleaks -h
         gitleaks detect --source /workspace/source -v --report-path /workspace/gitleaks-report.json
-        ls /workspace
+        if [ "$(cat /workspace/gitleaks-report.json)" = "[]" ]; then
+          echo "No leaks found. Continuing build..."
+        else
+          echo "Leak detected. Failing build..."
+          exit 1
+        fi
         
 artifacts:
   objects:
