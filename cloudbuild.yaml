@@ -2,7 +2,7 @@ steps:
   - name: 'gcr.io/cloud-builders/git'
     args:
       - 'clone'
-      - 'https://github.com/shlokie1999/MoviePilot'
+      - 'https://github.com/shlokie1999/python_blockchain_app'
       - '/workspace/source'
 
   - name: 'ubuntu'
