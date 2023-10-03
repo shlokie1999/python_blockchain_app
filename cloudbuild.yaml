@@ -44,6 +44,7 @@ steps:
         gitleaks -h
         gitleaks detect --source . -v --report-path gitleaks-report.json
         ls /workspace
+        
 artifacts:
   objects:
     location: 'gs://gitleaks-scan-report/'  # Update this with your bucket name
