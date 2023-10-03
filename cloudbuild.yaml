@@ -1,9 +1,9 @@
 steps:
-  # - name: 'gcr.io/cloud-builders/git'
-  #   args:
-  #     - 'clone'
-  #     - 'https://github.com/shlokie1999/MoviePilot'
-  #     - '/workspace/source'
+  - name: 'gcr.io/cloud-builders/git'
+    args:
+      - 'clone'
+      - 'https://github.com/shlokie1999/MoviePilot'
+      - '/workspace/source'
       
   # - name: 'gcr.io/cloud-builders/docker'
   #   args: ['pull', 'zricethezav/gitleaks:latest']
@@ -32,7 +32,7 @@ steps:
         chmod +x gitleaks
         mv gitleaks /usr/bin/
         gitleaks -h
-        gitleaks detect --source . -v --report-path gitleaks-report.json
+        gitleaks detect --source /workspace/source -v --report-path /workspace/gitleaks-report.json
         ls /workspace
         
 artifacts:
