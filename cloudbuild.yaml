@@ -18,6 +18,9 @@ steps:
         mv gitleaks /usr/bin/
         gitleaks -h
         gitleaks detect --source /workspace/source -v --report-path /workspace/gitleaks-report.json
+
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args: ['cp', 'report.json', 'gs://clair_scan_report_bucket/report.json']
   
   - name: 'ubuntu'
     entrypoint: 'bash'
@@ -31,9 +34,9 @@ steps:
           exit 1
         fi
         
-artifacts:
-  objects:
-    location: 'gs://gitleaks-scan-report/'  # Update this with your bucket name
-    paths: ['gitleaks-report.json']
+# artifacts:
+#   objects:
+#     location: 'gs://gitleaks-scan-report/'  # Update this with your bucket name
+#     paths: ['gitleaks-report.json']
 
       
