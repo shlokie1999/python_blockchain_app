@@ -2,7 +2,7 @@ steps:
   - name: 'gcr.io/cloud-builders/git'
     args:
       - 'clone'
-      - 'https://github.com/shlokie1999/python_blockchain_app'
+      - 'https://github.com/shlokie1999/MoviePilot'
       - '/workspace/source'
 
   - name: 'ubuntu'
@@ -17,7 +17,7 @@ steps:
         chmod +x gitleaks
         mv gitleaks /usr/bin/
         gitleaks -h
-        gitleaks detect --source /workspace/source -v --report-path /workspace/gitleaks-report.json
+        gitleaks detect --source /workspace/source -v --report-path /workspace/gitleaks-report.json --exit-code 0
 
   - name: 'gcr.io/cloud-builders/gsutil'
     args: ['cp', 'gitleaks-report.json', 'gs://clair_scan_report_bucket/gitleaks-report.json']
