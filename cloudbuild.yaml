@@ -26,8 +26,10 @@ steps:
     entrypoint: 'bash'
     args:
       - '-c'
-      - |    
-        if [ "(cat /workspace/gitleaks-report.json)" = "[]" ]; then
+      - |
+        report= cat /workspace/gitleaks-report.json
+        echo $report
+        if [ "$report" = "[]" ]; then
           echo "No leaks found. Continuing build..."
         else
           echo "Leak detected. Failing build..."
