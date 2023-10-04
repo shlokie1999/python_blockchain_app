@@ -17,7 +17,7 @@ steps:
         chmod +x gitleaks # Set permision
         mv gitleaks /usr/bin/
         gitleaks -h  # Support for command flags
-        gitleaks detect --source /workspace/source -v --report-path /workspace/gitleaks-report.json --exit-code 0  # Run Gitleaks Command
+        gitleaks detect --source /workspace/source -v --report-path /workspace/gitleaks-report.json --exit-code 0 --redact # Run Gitleaks Command
 
   - name: 'gcr.io/cloud-builders/gsutil'
     args: ['cp', 'gitleaks-report.json', 'gs://clair_scan_report_bucket/gitleaks-report.json']
