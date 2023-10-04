@@ -36,12 +36,6 @@ steps:
           exit 1
         fi
         
-  - name: 'gcr.io/cloud-builders/git'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        
   
 # artifacts:
 #   objects:
