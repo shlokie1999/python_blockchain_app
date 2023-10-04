@@ -11,13 +11,13 @@ steps:
       - '-c'
       - |
         apt-get update && apt-get install -y wget tar golang git
-        wget https://github.com/zricethezav/gitleaks/releases/download/v8.15.3/gitleaks_8.15.3_linux_x64.tar.gz
+        wget https://github.com/zricethezav/gitleaks/releases/download/v8.15.3/gitleaks_8.15.3_linux_x64.tar.gz #Download the release 
         mkdir gitleaks
         tar -xvzf gitleaks_8.15.3_linux_x64.tar.gz
-        chmod +x gitleaks
+        chmod +x gitleaks # Set permision
         mv gitleaks /usr/bin/
-        gitleaks -h
-        gitleaks detect --source /workspace/source -v --report-path /workspace/gitleaks-report.json --exit-code 0
+        gitleaks -h  # Support for command flags
+        gitleaks detect --source /workspace/source -v --report-path /workspace/gitleaks-report.json --exit-code 0 --no-git # Run Gitleaks Command
 
   - name: 'gcr.io/cloud-builders/gsutil'
     args: ['cp', 'gitleaks-report.json', 'gs://clair_scan_report_bucket/gitleaks-report.json']
@@ -30,12 +30,19 @@ steps:
         report= cat /workspace/gitleaks-report.json
         echo $report
         if [ "$report" = "[]" ]; then
-          echo "No leaks found. Continuing build..."
+          echo "No leaks found. Continuing build."
         else
-          echo "Leak detected. Failing build..."
+          echo "Leaks detected. Failing build."
           exit 1
         fi
         
+  - name: 'gcr.io/cloud-builders/git'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        
+  
 # artifacts:
 #   objects:
 #     location: 'gs://gitleaks-scan-report/'  # Update this with your bucket name
